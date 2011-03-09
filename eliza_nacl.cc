@@ -83,7 +83,7 @@ bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
   }
   std::string method_name = method.AsString();
   
-  return method_name == kStartMethodId || method_name = kTalkMethodId;
+  return method_name == kStartMethodId || method_name == kTalkMethodId;
 }
 
 pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
