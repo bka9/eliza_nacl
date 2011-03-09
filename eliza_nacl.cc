@@ -94,9 +94,9 @@ pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
   }
   std::string method_name = method.AsString();
   if(method_name == kStartMethodId){
-      return pp:Var(start());
+      return pp::Var(start());
   }else if(method_name == kTalkMethodId){
-      return pp:Var(respond(args[0].AsString()));
+      return pp::Var(respond(args[0].AsString()));
   }
   return pp::Var();
 }
