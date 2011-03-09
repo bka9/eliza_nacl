@@ -33,6 +33,7 @@ class Eliza{
     
     public:
     Eliza(pp::Instance* instance_);
+    ~Eliza();
     std::string respond(std::string text);
     std::string start();
     bool load_data();
@@ -42,7 +43,6 @@ class Eliza{
     
     private:
     
-    ~Eliza();
     bool bot_repeat() const;
 
     bool similar_response() const;
