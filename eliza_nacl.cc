@@ -20,6 +20,7 @@
 #include <ppapi/cpp/var.h>
 #include <cstdio>
 #include <string>
+#include "eliza.h"
 
 /// These are the method names as JavaScript sees them.  Add any methods for
 /// your class here.
