@@ -11,6 +11,8 @@
     function moduleDidLoad() {
       ElizaNaclModule = document.getElementById('eliza_nacl');
       updateStatus('SUCCESS');
+      var response = ElizaNaclModule.start();
+      responseList.innerHTML = responseList.innerHTML + ('<li>Eliza: ' + response +'</li>');
     }
 
     // If the page loads before the Native Client module loads, then set the
@@ -40,17 +42,6 @@
       var statusField = document.getElementById('status_field');
       if (statusField) {
         statusField.innerHTML = statusText;
-      }
-    }
-    function reportResult(result, success) {
-      if(success){
-          if(ElizaNaclModule == null){
-          }else{
-              var response = ElizaNaclModule.start();
-              responseList.innerHTML = responseList.innerHTML + ('<li>Eliza: ' + response +'</li>');
-          }
-      }else{
-          responseList.innerHTML = responseList.innerHTML + ('<li>ERROR: ' + result +'</li>');
       }
     }
     
