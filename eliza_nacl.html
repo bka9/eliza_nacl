@@ -6,6 +6,7 @@
   <script type="text/javascript">
     ElizaNaclModule = null;  // Global application object.
     statusText = 'NO-STATUS';
+    responseList = null;
 
     function moduleDidLoad() {
       ElizaNaclModule = document.getElementById('eliza_nacl');
@@ -25,6 +26,7 @@
         // display the current message.
         updateStatus();
       }
+      responseList = document.getElementById("responseList");
     }
 
     // Set the global status message.  If the element with id 'statusField'
@@ -39,6 +41,26 @@
       if (statusField) {
         statusField.innerHTML = statusText;
       }
+    }
+    function reportResult(result, success) {
+      if(success){
+          if(ElizaNaclModule == null){
+          }else{
+              var response = ElizaNaclModule.start();
+              responseList.innerHTML = responseList.innerHTML + ('<li>Eliza: ' + response +'</li>');
+          }
+      }else{
+          responseList.innerHTML = responseList.innerHTML + ('<li>ERROR: ' + result +'</li>');
+      }
+    }
+    
+    function talk(){
+        var answer = document.getElementById('answer').value;
+        responseList.innerHTML = responseList.innerHTML + ('<li>You: ' + answer +'</li>');
+        var response = ElizaNaclModule.say(answer);
+        responseList.innerHTML = responseList.innerHTML + ('<li>Eliza: ' + response +'</li>');
+        document.getElementById('answer').value = "";
+        
     }
   </script>
 </head>
@@ -65,6 +87,13 @@
          type="application/x-nacl"
          onload="moduleDidLoad();" />
 </p>
+
+<div class="output-screen">
+ <ul id="responseList">
+ </ul>
+</div>
+
+<input type="text" id="answer" class="inputbox"/><a href="#" onclick="talk();" class="talk">Submit</a>
 
 <h2>Status</h2>
 <div id="status_field">NO-STATUS</div>

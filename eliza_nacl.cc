@@ -28,6 +28,9 @@ namespace {
 // declaration and implementation.
 // TODO(sdk_user): 1. Add the declarations of your method IDs.
 
+const char* const kStartMethodId = "start";
+const char* const kTalkMethodId = "say"
+
 // TODO(sdk_user): 2. Implement the methods that correspond to your method IDs.
 }  // namespace
 
@@ -45,6 +48,8 @@ namespace {
 /// invoke the method.
 class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
  public:
+ explicit ElizaNaclScriptableObject(pp::Instance* instance)
+      : eliza(instance) {}
   /// Called by the browser to decide whether @a method is provided by this
   /// plugin's scriptable interface.
   /// @param[in] method The name of the method
@@ -64,6 +69,8 @@ class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
   virtual pp::Var Call(const pp::Var& method,
                        const std::vector<pp::Var>& args,
                        pp::Var* exception);
+ private:
+ Eliza eliza;
 };
 
 bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
@@ -72,10 +79,8 @@ bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
     return false;
   }
   std::string method_name = method.AsString();
-  // TODO(sdk_user): 3. Make this function return true iff method_name is equal
-  // to any of your method IDs.
-  bool has_method = false;
-  return has_method;
+  
+  return method_name == kStartMethodId || method_name = kTalkMethodId;
 }
 
 pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
@@ -85,8 +90,11 @@ pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
     return pp::Var();
   }
   std::string method_name = method.AsString();
-  // TODO(sdk_user): 4. Make this function call whatever method has method_name
-  // as its method ID.
+  if(method_name == kStartMethodId){
+      return pp:Var(eliza.start());
+  }else if(method_name == kTalkMethodId){
+      return pp:Var(eliza.respond(args[0].AsString()));
+  }
   return pp::Var();
 }
 
