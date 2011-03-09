@@ -29,7 +29,7 @@ namespace {
 // TODO(sdk_user): 1. Add the declarations of your method IDs.
 
 const char* const kStartMethodId = "start";
-const char* const kTalkMethodId = "say"
+const char* const kTalkMethodId = "say";
 
 // TODO(sdk_user): 2. Implement the methods that correspond to your method IDs.
 }  // namespace
