@@ -36,7 +36,7 @@ const char* const kTalkMethodId = "say";
      return "Hello, my name is Eliza. How are you today?";
  }
  std::string respond(std::string answer){
-     return "You said, \""+answer+"\".  Why do you feel that way?"
+     return "You said, \""+answer+"\".  Why do you feel that way?";
  }
 }  // namespace
 
