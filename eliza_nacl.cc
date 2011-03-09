@@ -125,7 +125,7 @@ class ElizaNaclInstance : public pp::Instance {
   /// @return The browser's handle to the plugin side instance.
   virtual pp::Var GetInstanceObject() {
     ElizaNaclScriptableObject* hw_object =
-        new ElizaNaclScriptableObject();
+        new ElizaNaclScriptableObject(this);
     return pp::Var(this, hw_object);
   }
 };
