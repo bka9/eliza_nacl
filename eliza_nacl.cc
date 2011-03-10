@@ -76,7 +76,7 @@ class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
                        const std::vector<pp::Var>& args,
                        pp::Var* exception);
   private:
-  Eliza* eliza_;
+  Eliza eliza_;
 };
 
 bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
@@ -97,7 +97,7 @@ pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
   }
   std::string method_name = method.AsString();
   if(method_name == kStartMethodId){
-      eliza_->Start();
+      eliza_.Start();
   }else if(method_name == kTalkMethodId){
       return pp::Var(respond(args[0].AsString()));
   }
