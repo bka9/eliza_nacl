@@ -20,6 +20,7 @@
 #include <ppapi/cpp/var.h>
 #include <cstdio>
 #include <string>
+#include "eliza.h"
 
 /// These are the method names as JavaScript sees them.  Add any methods for
 /// your class here.
@@ -54,7 +55,7 @@ const char* const kTalkMethodId = "say";
 /// invoke the method.
 class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
  public:
- explicit ElizaNaclScriptableObject(pp::Instance* instance){}
+ explicit ElizaNaclScriptableObject(pp::Instance* instance):eliza_(instance){}
   /// Called by the browser to decide whether @a method is provided by this
   /// plugin's scriptable interface.
   /// @param[in] method The name of the method
@@ -74,6 +75,8 @@ class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
   virtual pp::Var Call(const pp::Var& method,
                        const std::vector<pp::Var>& args,
                        pp::Var* exception);
+  private:
+  Eliza eliza_;
 };
 
 bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
@@ -94,7 +97,7 @@ pp::Var ElizaNaclScriptableObject::Call(const pp::Var& method,
   }
   std::string method_name = method.AsString();
   if(method_name == kStartMethodId){
-      return pp::Var(start());
+      eliza_->Start();
   }else if(method_name == kTalkMethodId){
       return pp::Var(respond(args[0].AsString()));
   }
