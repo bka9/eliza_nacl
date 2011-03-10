@@ -13,6 +13,7 @@ namespace {
     }
 }  // namespace
 
+namespace eliza{
 Eliza::Eliza(pp::Instance* instance)
     : instance_id_(instance->pp_instance()),
       url_request_(instance),
@@ -97,4 +98,5 @@ void Eliza::ReportResult(const std::string& fname,
   // defined in geturl.html.
   pp::Var exception;
   window.Call("reportResult", fname, text, success, &exception);
+}
 }
