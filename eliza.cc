@@ -21,6 +21,8 @@ Eliza::Eliza(pp::Instance* instance)
     url_request_.SetURL("eliza.txt");
     url_request_.SetMethod("GET");
 }
+Eliza::~Eliza(){}
+
 bool Eliza::Start() {
   pp::CompletionCallback cc = cc_factory_.NewCallback(&Eliza::OnOpen);
   int32_t res = url_loader_.Open(url_request_, cc);
