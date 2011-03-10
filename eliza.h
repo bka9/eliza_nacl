@@ -1,5 +1,5 @@
-#ifndef EXAMPLES_GETURL_GETURL_HANDLER_H_
-#define EXAMPLES_GETURL_GETURL_HANDLER_H_
+#ifndef ELIZA_H
+#define ELIZA_H
 
 #include <ppapi/cpp/completion_callback.h>
 #include <ppapi/cpp/url_loader.h>
