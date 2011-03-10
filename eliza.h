@@ -32,7 +32,7 @@ class Eliza{
         pp::URLLoader url_loader_;  // URLLoader provides an API to download URLs.
         char buffer_[kBufferSize];  // buffer for pp::URLLoader::ReadResponseBody().
         std::string url_response_body_;  // Contains downloaded data.
-        pp::CompletionCallbackFactory<GetURLHandler> cc_factory_;
+        pp::CompletionCallbackFactory<Eliza> cc_factory_;
 }
 
 #endif
