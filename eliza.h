@@ -9,7 +9,7 @@
 
 class Eliza{
     public:
-        Eliza(pp:Instance* instance_);
+        Eliza(pp::Instance* instance_);
         ~Eliza();
         bool Start();
     
