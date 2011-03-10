@@ -76,7 +76,7 @@ class ElizaNaclScriptableObject : public pp::deprecated::ScriptableObject {
                        const std::vector<pp::Var>& args,
                        pp::Var* exception);
   private:
-  Eliza eliza_;
+  eliza::Eliza eliza_;
 };
 
 bool ElizaNaclScriptableObject::HasMethod(const pp::Var& method,
