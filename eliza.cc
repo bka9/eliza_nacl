@@ -11,18 +11,25 @@ namespace {
     bool IsError(int32_t result) {
         return ((PP_OK != result) && (PP_ERROR_WOULDBLOCK != result));
     }
+    const char* const kRespondMethodId = "respond";
+    const char* const kStartMethodId = "start";
 }  // namespace
 
 namespace eliza{
-Eliza::Eliza(pp::Instance* instance)
-    : instance_id_(instance->pp_instance()),
-      url_request_(instance),
-      url_loader_(instance),
+Eliza::Eliza(pp::Instance instance)
+    : pp:Instance(instance),
+      url_request_(this),
+      url_loader_(this),
       cc_factory_(this) {
     url_request_.SetURL("eliza.txt");
     url_request_.SetMethod("GET");
 }
 Eliza::~Eliza(){}
+
+pp::Var Eliza::GetInstanceObject() {
+  ElizaScriptObject* script_object = new ElizaScriptObject(this);
+  return pp::Var(this, script_object);
+}
 
 bool Eliza::Start() {
   pp::CompletionCallback cc = cc_factory_.NewCallback(&Eliza::OnOpen);
@@ -98,5 +105,31 @@ void Eliza::ReportResult(const std::string& fname,
   // defined in geturl.html.
   pp::Var exception;
   window.Call("reportResult", fname, text, success, &exception);
+}
+
+bool Eliza::ElizaScriptObject::HasMethod(
+    const pp::Var& method,
+    pp::Var* exception) {
+  if (!method.is_string()) {
+    return false;
+  }
+  std::string method_name = method.AsString();
+  return (method_name == kRespondMethodId || method_name == kStartMethodId);
+}
+
+pp::Var Eliza::ElizaScriptObject::Call(
+    const pp::Var& method,
+    const std::vector<pp::Var>& args,
+    pp::Var* exception) {
+  if (!method.is_string()) {
+    return false;
+  }
+  std::string method_name = method.AsString();
+  if (app_instance_ != NULL && method_name == kStartMethodId) {
+    return app_instance_->Start();
+  } else {
+      return false;
+  }
+  return pp::Var();
 }
 }
